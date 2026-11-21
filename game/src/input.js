@@ -10,7 +10,7 @@ import { remainingDifferences } from './state.js';
 
 export const LOGICAL_WIDTH = 1280;
 export const LOGICAL_HEIGHT = 800;
-export const PANEL_TOP = 92;
+export const PANEL_TOP = 96;
 export const PANEL_LEFT_X = 20;
 export const PANEL_RIGHT_X = 650;
 export const PANEL_GAP = 20;
@@ -54,6 +54,17 @@ export function hitTestDifference(state, scene) {
     if (dx * dx + dy * dy <= diff.r * diff.r) return diff;
   }
   return null;
+}
+
+/** True when a scene point lands on a difference already found: a harmless tap. */
+export function hitTestFound(state, scene) {
+  for (const diff of state.level.differences) {
+    if (!state.found.has(diff.id)) continue;
+    const dx = scene.x - diff.x;
+    const dy = scene.y - diff.y;
+    if (dx * dx + dy * dy <= diff.r * diff.r) return true;
+  }
+  return false;
 }
 
 /** True when a logical point falls inside a rectangle. */

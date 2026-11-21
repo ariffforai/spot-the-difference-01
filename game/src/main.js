@@ -10,7 +10,7 @@
 import { createGameState, tick, markFound, markMiss, useHint, nextLevel, restartLevel, restartGame } from './state.js';
 import { renderFrame } from './render.js';
 import { hudButtons, overlayButtons } from './hud.js';
-import { canvasPoint, pointToScene, hitTestDifference, insideRect } from './input.js';
+import { canvasPoint, pointToScene, hitTestDifference, hitTestFound, insideRect } from './input.js';
 import { unlockAudio, playFound, playMiss, playHint, playWin, playClick, toggleMute } from './audio.js';
 import { stageShot } from './shots.js';
 import { LEVELS } from './differences.js';
@@ -70,6 +70,7 @@ export function handleClick(point) {
     if (state.status === 'levelComplete' || state.status === 'gameComplete') playWin();
     return wasWin;
   }
+  if (hitTestFound(state, scene)) return true; // tapping a found ring: no penalty
   markMiss(state, point.x, point.y);
   playMiss();
   return false;

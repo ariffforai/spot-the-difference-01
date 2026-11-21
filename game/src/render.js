@@ -26,9 +26,13 @@ function drawPanel(ctx, state, panelIndex) {
   ctx.lineWidth = 4;
   ctx.strokeRect(x, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT);
   ctx.fillStyle = panelIndex === 0 ? '#4ecdc4' : '#ff9f1c';
+  // A dark chip behind the label so the HUD divider never strikes through it.
+  ctx.fillStyle = '#0d0a18';
+  ctx.fillRect(x + PANEL_WIDTH / 2 - 105, PANEL_TOP - 27, 210, 23);
+  ctx.fillStyle = panelIndex === 0 ? '#4ecdc4' : '#ff9f1c';
   ctx.font = 'bold 15px Verdana, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(panelIndex === 0 ? '◀  ORIGINAL' : 'CHANGED  ▶', x + PANEL_WIDTH / 2, PANEL_TOP - 8);
+  ctx.fillText(panelIndex === 0 ? '◀  ORIGINAL' : 'CHANGED  ▶', x + PANEL_WIDTH / 2, PANEL_TOP - 9);
   ctx.textAlign = 'left';
 }
 
